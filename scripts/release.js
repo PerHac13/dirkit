@@ -4,7 +4,7 @@ const path = require('path');
 const packageJson = require('../package.json');
 
 function updateVersion(releaseType) {
-  console.log(`Preparing ${releaseType} release...`);
+  console.log(`Preparing a ${releaseType} release...`);
 
   try {
     execSync(`npm version ${releaseType}`, { stdio: 'inherit' });
@@ -14,18 +14,6 @@ function updateVersion(releaseType) {
     process.exit(1);
   }
 }
-
-// test is not applicable for this project at a momentS
-// function runTests() {
-//   console.log("Running tests before release...");
-//   try {
-//     execSync("npm test", { stdio: "inherit" });
-//     console.log("All tests passed.");
-//   } catch (error) {
-//     console.error("Tests failed. Release aborted.");
-//     process.exit(1);
-//   }
-// }
 
 function buildProject() {
   console.log('Building project...');
@@ -69,19 +57,30 @@ function main() {
     process.exit(1);
   }
 
-  // Run tests first
-  //   runTests();
+  console.log(`Starting the ${releaseType} release process.`);
 
-  // Update version
+  // Step 1: Update Version
   updateVersion(releaseType);
 
-  // Build project
+  // Step 2: Build the Project
   buildProject();
 
-  // Publish to npm
+  // Step 3: Publish to npm
   publishToNpm();
 
-  console.log('Release process completed successfully.');
+  console.log(`Patch release ${packageJson.version} has been published successfully.`);
 }
 
 main();
+
+// test is not applicable for this project at a momentS
+// function runTests() {
+//   console.log("Running tests before release...");
+//   try {
+//     execSync("npm test", { stdio: "inherit" });
+//     console.log("All tests passed.");
+//   } catch (error) {
+//     console.error("Tests failed. Release aborted.");
+//     process.exit(1);
+//   }
+// }
