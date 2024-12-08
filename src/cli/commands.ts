@@ -1,3 +1,3 @@
-const { DirkitCLI } = require("./index");
+const { DirkitCLI } = require('./index');
 
 DirkitCLI.init();
