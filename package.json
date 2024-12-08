@@ -1,6 +1,6 @@
 {
   "name": "dirkit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Directory management and visualization toolkit",
   "main": "dist/index.js",
   "bin": {
