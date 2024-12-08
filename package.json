@@ -6,6 +6,9 @@
   "bin": {
     "dirkit": "./bin/cli.js"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc -p ./config/tsconfig.json",
     "build:prepare": "node scripts/build.js",
@@ -25,6 +28,10 @@
     "tool"
   ],
   "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PerHac13/dirkit"
+  },
   "license": "MIT",
   "devDependencies": {
     "@commitlint/cli": "^18.0.0",
