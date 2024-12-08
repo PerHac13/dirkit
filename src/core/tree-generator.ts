@@ -6,7 +6,7 @@ export interface DirectoryTree {
   type: 'file' | 'directory';
   path: string;
   children?: DirectoryTree[];
-  size?: number;
+  // size?: number;
 }
 
 export interface TreeGeneratorOptions {
@@ -24,11 +24,21 @@ export class TreeGenerator {
     } = options;
 
     const generateNode = (currentPath: string, currentDepth: number): DirectoryTree | null => {
-      if (currentDepth > depth || exclude.some((ex) => currentPath.includes(ex))) {
+      // console.log({ depth, exclude, includeFiles });
+      // Check depth first
+      if (currentDepth > depth) {
         return null;
       }
 
+      // Get the base name of the current path
       const nodeName = path.basename(currentPath);
+
+      // Check if the current node should be excluded
+      if (exclude.some((ex) => nodeName === ex)) {
+        console.log('Excluding: ', nodeName);
+        return null;
+      }
+
       const stats = fs.statSync(currentPath);
 
       if (stats.isFile() && !includeFiles) {
@@ -39,16 +49,15 @@ export class TreeGenerator {
         name: nodeName,
         type: stats.isDirectory() ? 'directory' : 'file',
         path: currentPath,
-        size: stats.size,
       };
 
       if (stats.isDirectory()) {
         const children: DirectoryTree[] = [];
 
         try {
-          const file = fs.readdirSync(currentPath);
+          const files = fs.readdirSync(currentPath);
 
-          file.forEach((file) => {
+          files.forEach((file) => {
             const fullPath = path.join(currentPath, file);
             const childNode = generateNode(fullPath, currentDepth + 1);
 

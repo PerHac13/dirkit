@@ -55,8 +55,8 @@ export class FileParser {
         return false;
       }
 
-      if (node1.type === 'file' && node1.size !== node2.size) {
-        differences.push(`Size mismatch for file ${currentPath}`);
+      if (node1.type !== node2.type) {
+        differences.push(`File type mismatch for ${currentPath}`);
         return false;
       }
 

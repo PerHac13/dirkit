@@ -46,7 +46,7 @@ export class DirectoryComparator {
       if (
         node1.type !== node2.type ||
         node1.name !== node2.name ||
-        (node1.type === 'file' && node1.size !== node2.size)
+        (node1.type === 'file' && node2.type === 'file')
       ) {
         result.modified.push(node2);
         return;
